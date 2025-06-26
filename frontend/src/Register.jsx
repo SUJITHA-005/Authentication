@@ -13,7 +13,7 @@ export default function Register() {
     setLoading(true);
     setError('');
     try {
-      await axios.post('http://localhost:5000/api/auth/register', data, { withCredentials: true });
+      await axios.post('https://authentication-dy3p.onrender.com/api/auth/register', data, { withCredentials: true });
       navigate('/login');
     } catch (err) {
       setError(err.response?.data?.message || 'Registration failed');
