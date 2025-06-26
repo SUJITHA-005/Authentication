@@ -9,7 +9,7 @@ dotenv.config();
 const app = express();
 
 app.use(cors({
-  origin: 'http://localhost:5173',
+  origin: 'https://authentication-five-rouge.vercel.app',
   credentials: true
 }));
 app.use(express.json());
@@ -17,7 +17,7 @@ app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
-  cookie: { secure: false, httpOnly: true }
+  cookie: { secure: true, httpOnly: true }
 }));
 app.use('/api/auth', authRoutes);
 
