@@ -9,23 +9,12 @@ export default function Home() {
   useEffect(() => {
     axios.get('https://authentication-dy3p.onrender.com/api/auth/me', { withCredentials: true })
       .then(r => setU(r.data.user))
-      .catch(err => {
-        console.error("Auth check failed:", err);
-        setU(null);
-      });
+      .catch(() => setU(null));
   }, []);
 
   const lg = async () => {
-    try {
-      await axios.post(
-        'https://authentication-dy3p.onrender.com/api/auth/logout',
-        {},
-        { withCredentials: true }
-      );
-      setU(null);
-    } catch (err) {
-      console.error("Logout failed:", err);
-    }
+    await axios.post('https://authentication-dy3p.onrender.com/api/auth/logout', {}, { withCredentials: true });
+    setU(null);
   };
 
   return (
@@ -33,25 +22,17 @@ export default function Home() {
       <div className="auth-card">
         {u ? (
           <>
-            <h1 className="auth-title">
-              Welcome, <span className="user-name">{u.name}</span>
-            </h1>
+            <h1 className="auth-title">Welcome, <span className="user-name">{u.name}</span></h1>
             <p className="auth-message">You're successfully logged in!</p>
-            <button onClick={lg} className="auth-button logout-button">
-              Logout
-            </button>
+            <button onClick={lg} className="auth-button logout-button">Logout</button>
           </>
         ) : (
           <>
             <h1 className="auth-title">Welcome to Our Platform</h1>
             <p className="auth-message">Please login or register to continue</p>
             <div className="auth-actions">
-              <button onClick={() => navigate('/login')} className="auth-button login-button">
-                Login
-              </button>
-              <button onClick={() => navigate('/register')} className="auth-button register-button">
-                Register
-              </button>
+              <button onClick={() => navigate('/login')} className="auth-button login-button">Login</button>
+              <button onClick={() => navigate('/register')} className="auth-button register-button">Register</button>
             </div>
           </>
         )}

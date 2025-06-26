@@ -12,20 +12,10 @@ export default function Register() {
     e.preventDefault();
     setLoading(true);
     setError('');
-    console.log('Registering with data:', data);
-
     try {
-      await axios.post(
-        'https://authentication-dy3p.onrender.com/api/auth/register',
-        data,
-        {
-          headers: { 'Content-Type': 'application/json' },
-          withCredentials: true,
-        }
-      );
+      await axios.post('https://authentication-dy3p.onrender.com/api/auth/register', data, { withCredentials: true });
       navigate('/login');
     } catch (err) {
-      console.error('Registration Error:', err.response);
       setError(err.response?.data?.message || 'Registration failed');
     } finally {
       setLoading(false);
@@ -42,9 +32,8 @@ export default function Register() {
             <label htmlFor="name">Full Name</label>
             <input 
               id="name"
-              value={data.name}
               placeholder="Enter your full name" 
-              onChange={e => setData({ ...data, name: e.target.value })}
+              onChange={e => setData({...data, name: e.target.value})}
               required
             />
           </div>
@@ -53,9 +42,8 @@ export default function Register() {
             <input 
               id="email"
               type="email" 
-              value={data.email}
               placeholder="Enter your email" 
-              onChange={e => setData({ ...data, email: e.target.value })}
+              onChange={e => setData({...data, email: e.target.value})}
               required
             />
           </div>
@@ -64,9 +52,8 @@ export default function Register() {
             <input 
               id="password"
               type="password" 
-              value={data.password}
               placeholder="Create a password" 
-              onChange={e => setData({ ...data, password: e.target.value })}
+              onChange={e => setData({...data, password: e.target.value})}
               required
             />
           </div>
@@ -75,10 +62,7 @@ export default function Register() {
           </button>
         </form>
         <p className="auth-footer">
-          Already have an account?{' '}
-          <span onClick={() => navigate('/login')} className="auth-link">
-            Login here
-          </span>
+          Already have an account? <span onClick={() => navigate('/login')} className="auth-link">Login here</span>
         </p>
       </div>
     </div>
